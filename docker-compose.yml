@@ -1,0 +1,21 @@
+version: "1.0"
+networks:
+   lan:
+     external:
+      name: bridge_local
+services:
+  goovus:
+    container_name: "goovus"
+    image: "localhost/goovus:latest"
+# NOTE: replace MYDOMAIN and other place holders with correct values
+    hostname: "MYDOMAIN"
+    networks:
+      lan:
+        # set static ip within range of IP address in bridge_local
+        ipv4_address: DESIRED_STATIC_IP_ADDRESS 
+    privileged: true
+    restart: always
+    volumes:
+      - /HOST_LOCAL_CONF_WITH_INI_CONFIGS:/root/conf   
+      - /etc/letsencrypt/live/MYDOMAIN:/etc/letsencrypt/live/MYDOMAIN:ro
+      - /etc/letsencrypt/archive/MYDOMAIN:/etc/letsencrypt/archive/MYDOMAIN:ro
