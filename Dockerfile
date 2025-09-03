@@ -12,7 +12,7 @@ RUN CGO_ENABLED=0 GOOS=linux ./build.sh
 
 FROM alpine:3.22
 
-WORKDIR /app
+WORKDIR /root/
 COPY --from=builder /app/goovus  .
 
-CMD ["./goovus"]
+CMD ["./goovus", "-s"]
