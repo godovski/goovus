@@ -67,7 +67,7 @@ func NewVanityServer(conf DomainConf) (*VanityServer, error) {
 			http.NotFound(w, r)
 			return
 		} else if module, ok = modules[r.URL.Path]; !ok {
-			http.NotFound(w, r)
+			http.Error(w, fmt.Sprintf("404 - Module %s not registered in Goovus", r.URL.Path), http.StatusNotFound)
 			return
 		}
 		if err = VanityTemplate.Execute(w, module); err != nil {
