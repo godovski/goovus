@@ -9,6 +9,8 @@ services:
     image: "localhost/goovus:latest"
 # NOTE: replace MYDOMAIN and other place holders with correct values
     hostname: "MYDOMAIN"
+    # NOTE customize a mac address 
+    mac_address: "aa-bb-11-22-33-44"
     networks:
       lan:
         # set static ip within range of IP address in bridge_local
