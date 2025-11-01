@@ -8,7 +8,7 @@ RUN apk update
 RUN apk add git
 
 WORKDIR /app
-COPY  go.mod go.sum main.go vanity_server.go vanity_template.go functions.go conf.go ./
+COPY ./ ./
 COPY .git/ ./.git
 
 ENV CGO_ENABLED=0
