@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"path/filepath"
+	"runtime/debug"
 
 	"github.com/nofeaturesonlybugs/routines"
 )
@@ -12,8 +12,6 @@ import (
 var (
 	// Version is the application version.
 	Version = ""
-	// Date is the application build date.
-	Date = ""
 	// GoVersion is the Go version.
 	GoVersion = ""
 )
@@ -57,19 +55,15 @@ func main() {
 			os.Exit(0)
 		}
 	} else if Flags.Version {
-		exe, _ := os.Executable()
-		exe = filepath.Base(exe)
-		if Version == "" {
-			Version = "n/a"
-		}
-		if Date == "" {
-			Date = "n/a"
-		}
 		if GoVersion == "" {
 			GoVersion = "n/a"
 		}
-		fmt.Printf("%v %v\n", exe, Version)
-		fmt.Printf("\tbuilt %v\n\twith %v\n", Date, GoVersion)
+		bi, ok := debug.ReadBuildInfo()
+		if ok {
+			GoVersion = bi.GoVersion
+			Version = bi.Main.Version
+		}
+		fmt.Printf("%s %s\n", GoVersion, Version)
 		os.Exit(0)
 	}
 	//
